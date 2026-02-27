@@ -30,7 +30,7 @@ while (true)
             break;
         case "3":
             Console.WriteLine($"===TITULOS===");
-            titulos.ForEach(titulo => Console.WriteLine(titulo.Name));
+            titulos.ForEach(titulo => Console.WriteLine(titulo));
             break;
         default:
             Console.WriteLine("Opção inválida");
@@ -42,6 +42,31 @@ void CadastrarTituloCompleto()
 {
     try
     {
+        Title novoTitulo;
+
+        Console.WriteLine("""
+        ===DIGITE O TIPO DE TITULO===)
+        1 - JOGO
+        2 - FILME
+        3 - SÉRIE
+        """);
+        var tipo = Console.ReadLine();
+        switch (tipo)
+        {
+            case "1":
+                novoTitulo = new Game("Sem nome");
+                break;
+            case "2":
+                novoTitulo = new Movie("Sem nome");
+                break;
+            case "3":
+                novoTitulo = new TvShow("Sem nome");
+                break;
+            default:
+                Console.WriteLine("Opção inválida");
+                return;
+        }
+
         Console.WriteLine("===NOVO CADASTRO DE TITULO===");
         Console.WriteLine("===DIGITE O NOME DO TITULO===");
         var nome = Console.ReadLine();
@@ -52,9 +77,18 @@ void CadastrarTituloCompleto()
         Console.WriteLine("===DIGITE A NOTA DO PUBLICO DO TITULO===");
         var userScore = Console.ReadLine();
 
-        titulos.Add(new(nome, DateTime.Parse(dataDeLancamento),
-            int.Parse(metaScore),
-            int.Parse(userScore)));
+        if (novoTitulo is Game)
+        {
+            Console.WriteLine("===DIGITE PLATAFORMA DO JOGO===");
+            ((Game)novoTitulo).Plataform = Console.ReadLine();
+        }
+        else if (novoTitulo is Movie)
+        { 
+            Console.WriteLine("===DIGITE A DURAÇÃO DO JOGO===");
+            ((Movie)novoTitulo).Duration = int.Parse(Console.ReadLine());
+        }
+
+        titulos.Add(novoTitulo);
 
 
         Console.WriteLine("===CADASTRO REALIZADO COM SUCESSO===");
@@ -72,7 +106,31 @@ void CadastrarTituloSimplificado()
         Console.WriteLine("===NOVO CADASTRO DE TITULO===");
         Console.WriteLine("===DIGITE O NOME DO TITULO===");
         var nome = Console.ReadLine();
-        titulos.Add(new(nome));
+
+        Console.WriteLine("""
+        ===DIGITE O TIPO DE TITULO===)
+        1 - JOGO
+        2 - FILME
+        3 - SÉRIE
+        """);
+        var tipo = Console.ReadLine();
+        switch (tipo)
+        {
+            case "1":
+                titulos.Add(new Game(nome));
+                break;
+            case "2":
+                titulos.Add(new Movie(nome));
+                break;
+            case "3":
+                titulos.Add(new TvShow(nome));
+                break;
+            default:
+                Console.WriteLine("Opção inválida");
+                return;
+
+        }
+
         Console.WriteLine("===CADASTRO REALIZADO COM SUCESSO===");
     }
     catch (Exception ex)

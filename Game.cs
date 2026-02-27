@@ -13,6 +13,10 @@ public class Game : Title
 
 
         Plataform = plataform;
+    }
 
+    public override string ToString()
+    {
+        return base.ToString() + $", Plataform: {Plataform}";
     }
 }

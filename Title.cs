@@ -1,4 +1,4 @@
-public class Title
+public abstract class Title
 {
     public string Name { get; set; }
     public DateTime ReleaseDate { get; set; }
@@ -33,6 +33,10 @@ public class Title
         MetaScore = metaScore;
         UserScore = userScore;
     }
-    
 
+
+    public override string? ToString()
+    {
+        return $"{this.GetType()} - Name: {Name}, ReleaseDate: {ReleaseDate}, MetaScore: {MetaScore}, UserScore: {UserScore}";
+    }
 }
