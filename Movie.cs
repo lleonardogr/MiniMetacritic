@@ -1,4 +1,4 @@
-public class Movie : Title
+public class Movie// : Title
 {
     public int duration;
 

@@ -9,8 +9,9 @@ while (true)
     Console.WriteLine(
     """
     Digite a opção desejada:
-    1 - Cadastrar Titulo
-    2 - Mostrar Titulo
+    1 - Cadastrar Titulo Completo
+    2 - Cadastrar Titulo Simplificado
+    3 - Mostrar Titulo
     0 - Sair
     """);
 
@@ -22,9 +23,12 @@ while (true)
             Environment.Exit(0);
             break;
         case "1":
-            CadastrarTitulo();
+            CadastrarTituloCompleto();
             break;
         case "2":
+            CadastrarTituloSimplificado();
+            break;
+        case "3":
             Console.WriteLine($"===TITULOS===");
             titulos.ForEach(titulo => Console.WriteLine(titulo.Name));
             break;
@@ -34,26 +38,45 @@ while (true)
     }
 }
 
-void CadastrarTitulo()
-{ 
-    
-    Console.WriteLine("===NOVO CADASTRO DE TITULO===");
-            Console.WriteLine("===DIGITE O NOME DO TITULO===");
-            var nome = Console.ReadLine();
-            Console.WriteLine("===DIGITE O DATA DE LANÇAMENTO DO TITULO (YYYY-MM-DD)===");
-            var dataDeLancamento = Console.ReadLine();
-            Console.WriteLine("===DIGITE A NOTA DOS CRITICOS DO TITULO===");
-            var metaScore = Console.ReadLine();
-            Console.WriteLine("===DIGITE A NOTA DO PUBLICO DO TITULO===");
-            var userScore = Console.ReadLine();
+void CadastrarTituloCompleto()
+{
+    try
+    {
+        Console.WriteLine("===NOVO CADASTRO DE TITULO===");
+        Console.WriteLine("===DIGITE O NOME DO TITULO===");
+        var nome = Console.ReadLine();
+        Console.WriteLine("===DIGITE O DATA DE LANÇAMENTO DO TITULO (YYYY-MM-DD)===");
+        var dataDeLancamento = Console.ReadLine();
+        Console.WriteLine("===DIGITE A NOTA DOS CRITICOS DO TITULO===");
+        var metaScore = Console.ReadLine();
+        Console.WriteLine("===DIGITE A NOTA DO PUBLICO DO TITULO===");
+        var userScore = Console.ReadLine();
 
-            titulos.Add(new()
-            {
-                Name = nome,
-                ReleaseDate = DateTime.Parse(dataDeLancamento),
-                MetaScore = int.Parse(metaScore),
-                UserScore = int.Parse(userScore)
-            });
+        titulos.Add(new(nome, DateTime.Parse(dataDeLancamento),
+            int.Parse(metaScore),
+            int.Parse(userScore)));
 
-            Console.WriteLine("===CADASTRO REALIZADO COM SUCESSO===");
+
+        Console.WriteLine("===CADASTRO REALIZADO COM SUCESSO===");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"===ERRO AO CADASTRAR TITULO: {ex.Message}===");
+    }
+}
+
+void CadastrarTituloSimplificado()
+{
+    try
+    {
+        Console.WriteLine("===NOVO CADASTRO DE TITULO===");
+        Console.WriteLine("===DIGITE O NOME DO TITULO===");
+        var nome = Console.ReadLine();
+        titulos.Add(new(nome));
+        Console.WriteLine("===CADASTRO REALIZADO COM SUCESSO===");
+    }
+    catch (Exception ex)
+    { 
+        Console.WriteLine($"===ERRO AO CADASTRAR TITULO: {ex.Message}===");
+    }
 }
